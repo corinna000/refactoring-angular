@@ -37,43 +37,20 @@
     vm.duration = undefined;
     vm.percentPlayed = 0; // calculated with watcher
 
-    activate();
 
-    function activate() {
+    /**
+     * Initializes the brackets with the selected tracks
+     */
+    function startSlamOff() {
+      vm.tracks = randomizeTracks(angular.copy(vm.selectedTracks));
+      saveBracket(vm.tracks);
+      clearSearchResults();
     }
 
-    function randomizeTracks(tracks) {
-      var randomizedTracks = [];
-      while (tracks.length) {
-        var randomIndex = Math.floor(Math.random() * tracks.length);
-        randomizedTracks.push(tracks.splice(randomIndex, 1)[0]);
-      }
-      return randomizedTracks.filter(function (track) {
-        return (track.kind === 'track');
-      });
-    }
 
-    function stopTrack() {
-      if (vm.currentlyPlayingTrack) {
-        vm.currentlyPlayingTrack.stop();
-      }
-      if (vm.currentInterval) {
-        $interval.cancel(vm.currentInterval);
-      }
-    }
-    function playTrack(track) {
-      // stop any other track playing
-      stopTrack();
-      SC.stream('/tracks/' + track.id, function (sound) {
-        vm.currentlyPlayingTrack = sound;
-        sound.play();
-        vm.currentInterval = $interval(function () {
-          vm.duration = sound.getDuration();
-          vm.position = sound.getCurrentPosition();
-        }, 100);
-      });
-    }
-
+    /**
+     * Search SoundCloud for tracks to add to the poetry bracket
+     */
     function searchForPoetry() {
       var options = {
         q: vm.model.poetrySearch,
@@ -91,37 +68,88 @@
           vm.searchResults = tracks;
         });
       });
-
     }
 
+    /**
+     * Clears the search results
+     */
+    function clearSearchResults() {
+      vm.searchResults = [];
+    }
+
+    /**
+     * Randomizes a set of SoundCloud tracks
+     * @param tracks
+     * @returns {Array.<T>}
+     */
+    function randomizeTracks(tracks) {
+      var randomizedTracks = [];
+      while (tracks.length) {
+        var randomIndex = Math.floor(Math.random() * tracks.length);
+        randomizedTracks.push(tracks.splice(randomIndex, 1)[0]);
+      }
+      return randomizedTracks;
+    }
+
+    /**************************************************************
+     * TRACK OPERATIONS
+     *************************************************************/
+
+    /**
+     * Stops the current track from playing
+     */
+    function stopTrack() {
+      if (vm.currentlyPlayingTrack) {
+        vm.currentlyPlayingTrack.stop();
+      }
+      if (vm.currentInterval) {
+        $interval.cancel(vm.currentInterval);
+      }
+    }
+
+    /**
+     * Stops the currently playing track and plays the selected track
+     * @param track
+     */
+    function playTrack(track) {
+      // stop any other track playing
+      stopTrack();
+      SC.stream('/tracks/' + track.id, function (sound) {
+        vm.currentlyPlayingTrack = sound;
+        sound.play();
+        vm.currentInterval = $interval(function () {
+          vm.duration = sound.getDuration();
+          vm.position = sound.getCurrentPosition();
+        }, 100);
+      });
+    }
+
+    /**************************************************************
+     * BRACKET OPERATIONS
+     *************************************************************/
+
+    /**
+     * Returns the track from the set of winners matching the given index
+     * @param index
+     * @returns {*|T}
+     */
     function getWinner(index) {
       return vm.tracks[vm.winners[index]];
     }
 
-    function startSlamOff() {
-      vm.tracks = randomizeTracks(angular.copy(vm.selectedTracks));
-      saveBracket(vm.tracks);
-      clearSearchResults();
-    }
-
-    function previousRoundsComplete (round) {
-      var idx1 = 0, idx2 = 1;
-      if (round) {
-        idx1 += 2;
-        idx2 += 2;
-      }
-      return (angular.isDefined(vm.winners[idx1]) && angular.isDefined(vm.winners[idx2]));
-    }
-
-    function showFinal() {
-
-    }
-
+    /**
+     * Saves the brackets
+     * @returns {{}}
+     */
     function loadBrackets() {
       var savedBrackets = JSON.parse(localStorage.getItem('brackets'));
       return savedBrackets || {};
     }
 
+    /**
+     * Saves the brackets back to Storage
+     * @param tracks
+     */
     function saveBracket(tracks) {
       var savedBrackets = loadBrackets();
       if (vm.model.poetrySearch) {
@@ -130,10 +158,25 @@
       }
     }
 
-    function clearSearchResults() {
-      vm.searchResults = [];
+    /**
+     * Returns true if the previous set of winners has completed
+     * @param round
+     * @returns {boolean|*}
+     */
+    function previousRoundsComplete (round) {
+      var idx1 = 0, idx2 = 1;
+      if (round) {
+        idx1 += 2*round;
+        idx2 += 2*round;
+      }
+      return (angular.isDefined(vm.winners[idx1]) && angular.isDefined(vm.winners[idx2]));
     }
 
+    /**
+     * Votes for a track and records the track number for the given round
+     * @param round
+     * @param trackIdx
+     */
     function vote(round, trackIdx) {
       stopTrack();
       if (!vm.tracks[trackIdx].votes) {
