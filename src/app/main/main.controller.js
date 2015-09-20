@@ -11,15 +11,11 @@
 
     vm.tracks = [];
     vm.model = {};
-    vm.currentlyPlayingTrack = undefined;
     vm.searchForPoetry = searchForPoetry;
     vm.isDefined = angular.isDefined;
     vm.previousRoundsComplete = previousRoundsComplete;
-    vm.showFinal = showFinal;
 
     //controls
-    vm.playTrack = playTrack;
-    vm.stopTrack = stopTrack;
     vm.startSlamOff = startSlamOff;
     vm.vote = vote;
     vm.saveBracket = saveBracket;
@@ -63,6 +59,7 @@
         }
       };
 
+
       SC.get('/tracks', options, function (tracks) {
         $scope.$apply(function () {
           vm.searchResults = tracks;
@@ -89,39 +86,6 @@
         randomizedTracks.push(tracks.splice(randomIndex, 1)[0]);
       }
       return randomizedTracks;
-    }
-
-    /**************************************************************
-     * TRACK OPERATIONS
-     *************************************************************/
-
-    /**
-     * Stops the current track from playing
-     */
-    function stopTrack() {
-      if (vm.currentlyPlayingTrack) {
-        vm.currentlyPlayingTrack.stop();
-      }
-      if (vm.currentInterval) {
-        $interval.cancel(vm.currentInterval);
-      }
-    }
-
-    /**
-     * Stops the currently playing track and plays the selected track
-     * @param track
-     */
-    function playTrack(track) {
-      // stop any other track playing
-      stopTrack();
-      SC.stream('/tracks/' + track.id, function (sound) {
-        vm.currentlyPlayingTrack = sound;
-        sound.play();
-        vm.currentInterval = $interval(function () {
-          vm.duration = sound.getDuration();
-          vm.position = sound.getCurrentPosition();
-        }, 100);
-      });
     }
 
     /**************************************************************

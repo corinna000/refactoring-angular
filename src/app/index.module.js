@@ -2,8 +2,6 @@
   'use strict';
 
   angular
-    .module('slamOff', ['ngAnimate', 'ngSanitize', 'ui.router']);
-
-
+    .module('slamOff', ['ui.router', 'soundcloud']);
 
 })();
