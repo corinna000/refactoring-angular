@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope) {
+  function MainController($scope, trackSearch) {
     var vm = this;
 
     vm.tracks = [];
@@ -40,21 +40,8 @@
      * Search SoundCloud for tracks to add to the poetry bracket
      */
     function searchForPoetry() {
-      var options = {
-        q: vm.model.poetrySearch,
-        genres: 'poetry',
-        limit: 16,
-        streamable: true,
-        duration: {
-          from: 0,
-          to: 1000 * 60 * 3 // three minutes
-        }
-      };
-
-      SC.get('/tracks', options, function (tracks) {
-        $scope.$apply(function () {
-          vm.searchResults = tracks;
-        });
+      trackSearch.search(vm.model.poetrySearch).then(function (tracks) {
+        vm.searchResults = tracks;
       });
     }
 
