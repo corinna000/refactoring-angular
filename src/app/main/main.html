@@ -37,14 +37,7 @@
       </form>
     </div>
     <div ng-show="vm.tracks.length">
-      <div>Position: {{ vm.position | date:'mm:ss' }}</div>
-      <div>Duration : {{ vm.duration | date:'mm:ss' }}</div>
-      <div class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"
-             ng-style="vm.percentPlayed">
-          <span class="sr-only">{{ vm.percentPlayed }} Complete</span>
-        </div>
-      </div>
+      <track-player-progress></track-player-progress>
       <table class="table" id="brackets">
         <tr>
           <td class="round-one">

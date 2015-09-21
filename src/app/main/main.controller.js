@@ -6,13 +6,12 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, $interval) {
+  function MainController($scope) {
     var vm = this;
 
     vm.tracks = [];
     vm.model = {};
     vm.searchForPoetry = searchForPoetry;
-    vm.isDefined = angular.isDefined;
     vm.previousRoundsComplete = previousRoundsComplete;
 
     //controls
@@ -28,12 +27,6 @@
     // final: 6
     vm.winners = [];
 
-    // sound attributes
-    vm.position = undefined;
-    vm.duration = undefined;
-    vm.percentPlayed = 0; // calculated with watcher
-
-
     /**
      * Initializes the brackets with the selected tracks
      */
@@ -42,7 +35,6 @@
       saveBracket(vm.tracks);
       clearSearchResults();
     }
-
 
     /**
      * Search SoundCloud for tracks to add to the poetry bracket
@@ -58,7 +50,6 @@
           to: 1000 * 60 * 3 // three minutes
         }
       };
-
 
       SC.get('/tracks', options, function (tracks) {
         $scope.$apply(function () {
@@ -150,12 +141,6 @@
       }
       vm.winners[round] = trackIdx;
     }
-
-    // sets the width value for progress bar
-    $scope.$watch('vm.position', function () {
-      var percent = parseFloat(vm.position / vm.duration * 100).toFixed(0);
-      vm.percentPlayed = {width: percent + '%'};
-    });
 
     $scope.$watch('vm.searchResults', function (updatedList) {
       if (angular.isArray(updatedList)) {
