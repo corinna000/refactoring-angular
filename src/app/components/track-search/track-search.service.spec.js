@@ -1,4 +1,5 @@
-(function () {
+describe('trackSearch', function () {
+
   'use strict';
 
   var sut, $rootScope;
@@ -41,4 +42,4 @@
 
   });
 
-})();
+});

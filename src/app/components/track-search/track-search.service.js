@@ -13,7 +13,7 @@
     }
   };
 
-  function trackSearch(soundcloud, $q, $rootScope) {
+  function trackSearch(TrackModel, soundcloud, $q) {
 
     var service = {
       search: search
@@ -27,7 +27,9 @@
 
       return $q(function (resolve) {
         soundcloud.get('/tracks', opts, function (tracks) {
-          resolve(tracks);
+          resolve(tracks.map(function (track) {
+            return new TrackModel(track);
+          }));
         });
       });
     }

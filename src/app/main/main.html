@@ -11,7 +11,7 @@
         <form class="form-inline" ng-submit="vm.searchForPoetry()">
           <div class="form-group">
             <label for="poetrySearch">Search for Slam Poetry</label>
-            <input class="form-control" id="poetrySearch" name="poetrySearch" ng-model="vm.model.poetrySearch">
+            <input class="form-control" id="poetrySearch" name="poetrySearch" ng-model="vm.poetrySearchTerm">
             <button class="btn btn-primary" type="submit">Search</button>
           </div>
         </form>
@@ -36,102 +36,102 @@
         </ul>
       </form>
     </div>
-    <div ng-show="vm.tracks.length">
+    <div ng-show="vm.bm.tracks.length">
       <track-player-progress></track-player-progress>
       <table class="table" id="brackets">
         <tr>
           <td class="round-one">
             <h3>Round 1</h3>
-            <div ng-hide="vm.getWinner(0)">
-              <so-voting-track track="vm.tracks[0]"></so-voting-track>
+            <div ng-show="vm.bm.showCurrentRound(0)">
+              <so-voting-track track="vm.bm.tracks[0]" round="0"></so-voting-track>
               vs.
-              <so-voting-track track="vm.tracks[1]"></so-voting-track>
+              <so-voting-track track="vm.bm.tracks[1]" round="0"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(0)">
-              Winner: <span class="winner">{{ vm.getWinner(0).title }}</span>
+            <div ng-show="vm.bm.getWinner(0)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(0).title }}</span>
             </div>
           </td>
           <td rowdiv="2" class="round-two">
 
             <h3>Semi-Final</h3>
-            <div ng-show="vm.previousRoundsComplete(0) && !vm.getWinner(4)">
-              <so-voting-track track="vm.getWinner(0)"></so-voting-track>
+              <div ng-show="vm.bm.showCurrentRound(4)">
+              <so-voting-track track="vm.bm.getWinner(0)" round="4"></so-voting-track>
               vs.
-              <so-voting-track track="vm.getWinner(1)"></so-voting-track>
+              <so-voting-track track="vm.bm.getWinner(1)" round="4"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(4)">
-              Winner: <span class="winner">{{ vm.getWinner(4).title }}</span>
+            <div ng-show="vm.bm.getWinner(4)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(4).title }}</span>
             </div>
 
           </td>
           <td rowdiv="4" class="round-three">
 
             <h3>Final Round</h3>
-            <div ng-show="vm.getWinner(4) && vm.getWinner(5)">
-              <so-voting-track track="vm.getWinner(4)"></so-voting-track>
+              <div ng-show="vm.bm.showCurrentRound(6)">
+              <so-voting-track track="vm.bm.getWinner(4)" round="6"></so-voting-track>
               vs.
-              <so-voting-track track="vm.getWinner(5)"></so-voting-track>
+              <so-voting-track track="vm.bm.getWinner(5)" round="6"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(6)">
-              Winner: <span class="winner">{{ vm.getWinner(6).title }}</span>
+            <div ng-show="vm.bm.getWinner(6)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(6).title }}</span>
             </div>
           </td>
         </tr>
         <tr>
           <td class="round-one">
-            <div ng-hide="vm.getWinner(1)">
-              <so-voting-track track="vm.tracks[2]"></so-voting-track>
+              <div ng-show="vm.bm.showCurrentRound(1)">
+              <so-voting-track track="vm.bm.tracks[2]" round="1"></so-voting-track>
               vs.
-              <so-voting-track track="vm.tracks[3]"></so-voting-track>
+              <so-voting-track track="vm.bm.tracks[3]" round="1"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(1)">
-              Winner: <span class="winner">{{ vm.getWinner(1).title }}</span>
+            <div ng-show="vm.bm.getWinner(1)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(1).title }}</span>
             </div>
         </tr>
         <tr>
           <td class="round-one">
-            <div ng-hide="vm.getWinner(2)">
-              <so-voting-track track="vm.tracks[4]"></so-voting-track>
+              <div ng-show="vm.bm.showCurrentRound(2)">
+              <so-voting-track track="vm.bm.tracks[4]" round="2"></so-voting-track>
               vs.
-              <so-voting-track track="vm.tracks[5]"></so-voting-track>
+              <so-voting-track track="vm.bm.tracks[5]" round="2"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(2)">
-              Winner: <span class="winner">{{ vm.getWinner(2).title }}</span>
+            <div ng-show="vm.bm.getWinner(2)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(2).title }}</span>
             </div>
           </td>
           <td rowdiv="2" class="round-two">
-            <div ng-show="vm.previousRoundsComplete(1) && !vm.getWinner(5)">
+            <div ng-show="vm.bm.showCurrentRound(5)">
               <h3>Semi-Final</h3>
-              <so-voting-track track="vm.getWinner(2)"></so-voting-track>
+              <so-voting-track track="vm.bm.getWinner(2)" round="5"></so-voting-track>
               vs.
-              <so-voting-track track="vm.getWinner(3)"></so-voting-track>
+              <so-voting-track track="vm.bm.getWinner(3)" round="5"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(5)">
-              Winner: <span class="winner">{{ vm.getWinner(5).title }}</span>
+            <div ng-show="vm.bm.getWinner(5)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(5).title }}</span>
             </div>
 
           </td>
         </tr>
         <tr>
           <td class="round-one">
-            <div ng-hide="vm.getWinner(3)">
-              <so-voting-track track="vm.tracks[6]"></so-voting-track>
+              <div ng-show="vm.bm.showCurrentRound(3)">
+              <so-voting-track track="vm.bm.tracks[6]" round="3"></so-voting-track>
               vs.
-              <so-voting-track track="vm.tracks[7]"></so-voting-track>
+              <so-voting-track track="vm.bm.tracks[7]" round="3"></so-voting-track>
             </div>
-            <div ng-show="vm.getWinner(3)">
-              Winner: <span class="winner">{{ vm.getWinner(3).title }}</span>
+            <div ng-show="vm.bm.getWinner(3)">
+              Winner: <span class="winner">{{ vm.bm.getWinner(3).title }}</span>
             </div>
           </td>
         </tr>
       </table>
 
-      <div ng-show="vm.getWinner(6)">
+      <div ng-show="vm.bm.getWinner(6)">
         <h3>Voting Summary:</h3>
         <table class="table table-striped">
-          <tr ng-repeat="track in vm.tracks | orderBy: '-votes'">
+          <tr ng-repeat="track in vm.bm.tracks | orderBy: '-votes'">
             <td>{{ track.title }}</td>
-            <td><span ng-show="track.votes">{{ track.votes }}</span><span ng-hide="track.votes">0</span></td>
+            <td><span> {{ track.votes }}</span></td>
           </tr>
 
         </table>

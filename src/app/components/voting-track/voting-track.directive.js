@@ -9,17 +9,23 @@
       scope: {
         track: '='
       },
-      controller: function ($scope, trackPlayer) {
+      controller: function ($scope, $attrs, trackPlayer, bracketManager) {
         $scope.play = play;
         $scope.stop = stop;
+        $scope.vote = vote;
 
         function play(track) {
-          trackPlayer.stop();
+          stop();
           trackPlayer.play(track);
         }
 
         function stop() {
           trackPlayer.stop();
+        }
+
+        function vote () {
+          stop();
+          bracketManager.vote($attrs.round, $scope.track);
         }
       }
     };

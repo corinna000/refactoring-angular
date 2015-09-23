@@ -35,7 +35,6 @@
 
     it('should display a progress bar', function () {
       var progressBar = angular.element(element[0].querySelector('.progress-bar'));
-      console.log('progressBar', element);
       expect(progressBar.html()).toBeDefined();
     });
 
