@@ -1,0 +1,9 @@
+<div ng-show="vm.bm.getWinner(6)">
+  <h3>Voting Summary:</h3>
+  <table class="table table-striped">
+    <tr ng-repeat="track in vm.bm.tracks | orderBy: '-votes'">
+      <td>{{ track.title }}</td>
+      <td><span> {{ track.votes }}</span></td>
+    </tr>
+  </table>
+</div>

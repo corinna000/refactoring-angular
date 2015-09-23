@@ -1,141 +1,14 @@
 <div class="container">
   <div class="jumbotron">
     <h1><i>SlamOff</i></h1>
-
     <p>The Slam Poetry Bracket App</p>
   </div>
-  <div>
-    <!--<pre>{{ vm.selectedTracks }}</pre>-->
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <form class="form-inline" ng-submit="vm.searchForPoetry()">
-          <div class="form-group">
-            <label for="poetrySearch">Search for Slam Poetry</label>
-            <input class="form-control" id="poetrySearch" name="poetrySearch" ng-model="vm.poetrySearchTerm">
-            <button class="btn btn-primary" type="submit">Search</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="search-results">
-      <div ng-show="!vm.selectedTracks.length"></div>
-      <div ng-show="vm.selectedTracks.length > 0 && vm.selectedTracks.length < 8">Select <span
-        ng-bind="8 - vm.selectedTracks.length"></span> more tracks</span></div>
-      <div ng-show="vm.selectedTracks.length == 8">
-        <button class="btn btn-primary" ng-click="vm.startSlamOff()">Start SlamOff!</button>
-      </div>
-      <div ng-show="vm.selectedTracks.length > 8">You selected too many tracks!</span></div>
-      <form name="checkedItems">
-        <ul>
-          <li ng-repeat="track in vm.searchResults track by $index">
-            <label>
-              <input type="checkbox" value="{{ $index }}" name="track_{{$index}}" ng-model="track.selected">
-              {{ track.title }} ({{ track.duration | date:'mm:ss' }})
-            </label>
-          </li>
-        </ul>
-      </form>
-    </div>
+  <div ng-include="'app/main/templates/search-form.html'"></div>
+  <div ng-include="'app/main/templates/search-results.html'"></div>
     <div ng-show="vm.bm.tracks.length">
       <track-player-progress></track-player-progress>
-      <table class="table" id="brackets">
-        <tr>
-          <td class="round-one">
-            <h3>Round 1</h3>
-            <div ng-show="vm.bm.showCurrentRound(0)">
-              <so-voting-track track="vm.bm.tracks[0]" round="0"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.tracks[1]" round="0"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(0)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(0).title }}</span>
-            </div>
-          </td>
-          <td rowdiv="2" class="round-two">
-
-            <h3>Semi-Final</h3>
-              <div ng-show="vm.bm.showCurrentRound(4)">
-              <so-voting-track track="vm.bm.getWinner(0)" round="4"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.getWinner(1)" round="4"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(4)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(4).title }}</span>
-            </div>
-
-          </td>
-          <td rowdiv="4" class="round-three">
-
-            <h3>Final Round</h3>
-              <div ng-show="vm.bm.showCurrentRound(6)">
-              <so-voting-track track="vm.bm.getWinner(4)" round="6"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.getWinner(5)" round="6"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(6)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(6).title }}</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td class="round-one">
-              <div ng-show="vm.bm.showCurrentRound(1)">
-              <so-voting-track track="vm.bm.tracks[2]" round="1"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.tracks[3]" round="1"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(1)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(1).title }}</span>
-            </div>
-        </tr>
-        <tr>
-          <td class="round-one">
-              <div ng-show="vm.bm.showCurrentRound(2)">
-              <so-voting-track track="vm.bm.tracks[4]" round="2"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.tracks[5]" round="2"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(2)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(2).title }}</span>
-            </div>
-          </td>
-          <td rowdiv="2" class="round-two">
-            <div ng-show="vm.bm.showCurrentRound(5)">
-              <h3>Semi-Final</h3>
-              <so-voting-track track="vm.bm.getWinner(2)" round="5"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.getWinner(3)" round="5"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(5)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(5).title }}</span>
-            </div>
-
-          </td>
-        </tr>
-        <tr>
-          <td class="round-one">
-              <div ng-show="vm.bm.showCurrentRound(3)">
-              <so-voting-track track="vm.bm.tracks[6]" round="3"></so-voting-track>
-              vs.
-              <so-voting-track track="vm.bm.tracks[7]" round="3"></so-voting-track>
-            </div>
-            <div ng-show="vm.bm.getWinner(3)">
-              Winner: <span class="winner">{{ vm.bm.getWinner(3).title }}</span>
-            </div>
-          </td>
-        </tr>
-      </table>
-
-      <div ng-show="vm.bm.getWinner(6)">
-        <h3>Voting Summary:</h3>
-        <table class="table table-striped">
-          <tr ng-repeat="track in vm.bm.tracks | orderBy: '-votes'">
-            <td>{{ track.title }}</td>
-            <td><span> {{ track.votes }}</span></td>
-          </tr>
-
-        </table>
-      </div>
+      <div ng-include="'app/main/templates/brackets.html'"></div>
+      <div ng-include="'app/main/templates/voting-summary.html'"></div>
     </div>
   </div>
 </div>
