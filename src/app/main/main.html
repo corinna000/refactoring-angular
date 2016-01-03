@@ -5,37 +5,8 @@
     <p>The Slam Poetry Bracket App</p>
   </div>
   <div>
-    <!--<pre>{{ vm.selectedTracks }}</pre>-->
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <form class="form-inline" ng-submit="vm.searchForPoetry()">
-          <div class="form-group">
-            <label for="poetrySearch">Search for Slam Poetry</label>
-            <input class="form-control" id="poetrySearch" name="poetrySearch" ng-model="vm.model.poetrySearch">
-            <button class="btn btn-primary" type="submit">Search</button>
-          </div>
-        </form>
-      </div>
-    </div>
-    <div id="search-results">
-      <div ng-show="!vm.selectedTracks.length"></div>
-      <div ng-show="vm.selectedTracks.length > 0 && vm.selectedTracks.length < 8">Select <span
-        ng-bind="8 - vm.selectedTracks.length"></span> more tracks</span></div>
-      <div ng-show="vm.selectedTracks.length == 8">
-        <button class="btn btn-primary" ng-click="vm.startSlamOff()">Start SlamOff!</button>
-      </div>
-      <div ng-show="vm.selectedTracks.length > 8">You selected too many tracks!</span></div>
-      <form name="checkedItems">
-        <ul>
-          <li ng-repeat="track in vm.searchResults track by $index">
-            <label>
-              <input type="checkbox" value="{{ $index }}" name="track_{{$index}}" ng-model="track.selected">
-              {{ track.title }} ({{ track.duration | date:'mm:ss' }})
-            </label>
-          </li>
-        </ul>
-      </form>
-    </div>
+    <div ng-include="'app/search/search-fragment.html'"></div>
+    <div ng-include="'app/search/search-results-fragment.html'"></div>
     <div ng-show="vm.tracks.length">
       <div>Position: {{ vm.position | date:'mm:ss' }}</div>
       <div>Duration : {{ vm.duration | date:'mm:ss' }}</div>
