@@ -15,7 +15,6 @@
     vm.searchForPoetry = searchForPoetry;
     vm.isDefined = angular.isDefined;
     vm.previousRoundsComplete = previousRoundsComplete;
-    vm.showFinal = showFinal;
 
     //controls
     vm.playTrack = playTrack;
