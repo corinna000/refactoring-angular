@@ -5,8 +5,8 @@
     <p>The Slam Poetry Bracket App</p>
   </div>
   <div>
-    <div ng-include="'app/search/search-fragment.html'"></div>
-    <div ng-include="'app/search/search-results-fragment.html'"></div>
+    <div ng-include="'app/search/search-partial.html'"></div>
+    <div ng-include="'app/search/search-results-partial.html'"></div>
     <div ng-show="vm.tracks.length">
       <div>Position: {{ vm.position | date:'mm:ss' }}</div>
       <div>Duration : {{ vm.duration | date:'mm:ss' }}</div>
