@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, $interval) {
+  function MainController($scope, $interval, soundcloud) {
     var vm = this;
 
     vm.tracks = [];
@@ -61,7 +61,7 @@
         }
       };
 
-      SC.get('/tracks', options, function (tracks) {
+      soundcloud.get('/tracks', options, function (tracks) {
         $scope.$apply(function () {
           vm.searchResults = tracks;
         });
@@ -112,7 +112,7 @@
     function playTrack(track) {
       // stop any other track playing
       stopTrack();
-      SC.stream('/tracks/' + track.id, function (sound) {
+      soundcloud.stream('/tracks/' + track.id, function (sound) {
         vm.currentlyPlayingTrack = sound;
         sound.play();
         vm.currentInterval = $interval(function () {
