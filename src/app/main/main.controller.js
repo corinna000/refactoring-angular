@@ -9,6 +9,7 @@
   function MainController($scope, $interval, soundcloud) {
     var vm = this;
 
+    vm.updateTracks = updateTracks;
     vm.tracks = [];
     vm.model = {};
     vm.currentlyPlayingTrack = undefined;
@@ -45,27 +46,8 @@
       clearSearchResults();
     }
 
-
-    /**
-     * Search SoundCloud for tracks to add to the poetry bracket
-     */
-    function searchForPoetry() {
-      var options = {
-        q: vm.model.poetrySearch,
-        genres: 'poetry',
-        limit: 16,
-        streamable: true,
-        duration: {
-          from: 0,
-          to: 1000 * 60 * 3 // three minutes
-        }
-      };
-
-      soundcloud.get('/tracks', options, function (tracks) {
-        $scope.$apply(function () {
-          vm.searchResults = tracks;
-        });
-      });
+    function updateTracks(tracks) {
+      vm.searchResults = tracks;
     }
 
     /**

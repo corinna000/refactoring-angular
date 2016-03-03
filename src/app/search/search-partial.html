@@ -1,11 +1,8 @@
 <div class="panel panel-default">
   <div class="panel-body">
-    <form class="form-inline" ng-submit="vm.searchForPoetry()">
       <div class="form-group">
         <label for="poetrySearch">Search for Slam Poetry</label>
-        <input class="form-control" id="poetrySearch" name="poetrySearch" ng-model="vm.model.poetrySearch">
-        <button class="btn btn-primary" type="submit">Search</button>
+        <so-search on-tracks-updated="vm.updateTracks"></so-search>
       </div>
-    </form>
   </div>
 </div>

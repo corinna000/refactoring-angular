@@ -13,7 +13,11 @@
     function search(options, term) {
       options = options || {};
       options.q = term;
-      return $q.when(soundcloud.get('/tracks', options));
+      return $q(function (resolve) {
+        soundcloud.get('/tracks', options, function (results) {
+          resolve(results);
+        });
+      })
     }
 
   }

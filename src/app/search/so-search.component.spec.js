@@ -13,7 +13,7 @@
       $rootScope = _$rootScope_;
       StreamingAudio = _StreamingAudio_;
       $scope = $rootScope.$new();
-      $scope.updateTracks = function (result) { console.log('hey!: ', result);}
+      $scope.updateTracks = angular.noop;
       spyOn(StreamingAudio, 'search').and.returnValue($q.when(mockTracks()));
       spyOn($scope, 'updateTracks').and.callThrough();
     }));
@@ -27,7 +27,6 @@
     it('creates the component', function () {
       var input = element.find('input');
       expect(input.length).toEqual(1);
-      console.log('element', element);
     });
 
     it('should make an outgoing search request', function () {
