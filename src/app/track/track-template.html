@@ -1,0 +1,11 @@
+<div class="track">
+  {{ vm.tracks[0].title }} ({{ vm.tracks[0].duration | date:'mm:ss'}})
+  <span ng-click="vm.playTrack(vm.tracks[0])"><i class="glyphicon glyphicon-play"></i></span>
+  <span ng-click="vm.currentlyPlayingTrack.stop()"><i class="glyphicon glyphicon-stop"></i></span>
+  <button ng-click="vm.vote(0, 0)" class="label label-success">vote!</button>
+</div>
+
+<so-track track="vm.tracks[0]">
+  <so-vote subject="vm.tracks[0]" round="1"></so-vote>
+</so-track>
+

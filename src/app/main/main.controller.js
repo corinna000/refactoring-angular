@@ -13,7 +13,6 @@
     vm.tracks = [];
     vm.model = {};
     vm.currentlyPlayingTrack = undefined;
-    vm.searchForPoetry = searchForPoetry;
     vm.isDefined = angular.isDefined;
     vm.previousRoundsComplete = previousRoundsComplete;
     //controls
