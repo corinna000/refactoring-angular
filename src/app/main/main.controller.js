@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($scope, $interval, soundcloud) {
+  function MainController($scope, $interval, trackPlayer) {
     var vm = this;
 
     vm.updateTracks = updateTracks;
@@ -17,7 +17,7 @@
     vm.previousRoundsComplete = previousRoundsComplete;
     //controls
     vm.playTrack = playTrack;
-    vm.stopTrack = stopTrack;
+    vm.stopTrack = trackPlayer.stop;
     vm.startSlamOff = startSlamOff;
     vm.vote = vote;
     vm.saveBracket = saveBracket;
@@ -75,32 +75,13 @@
      *************************************************************/
 
     /**
-     * Stops the current track from playing
-     */
-    function stopTrack() {
-      if (vm.currentlyPlayingTrack) {
-        vm.currentlyPlayingTrack.stop();
-      }
-      if (vm.currentInterval) {
-        $interval.cancel(vm.currentInterval);
-      }
-    }
-
-    /**
      * Stops the currently playing track and plays the selected track
      * @param track
      */
     function playTrack(track) {
       // stop any other track playing
-      stopTrack();
-      soundcloud.stream('/tracks/' + track.id, function (sound) {
-        vm.currentlyPlayingTrack = sound;
-        sound.play();
-        vm.currentInterval = $interval(function () {
-          vm.duration = sound.getDuration();
-          vm.position = sound.getCurrentPosition();
-        }, 100);
-      });
+      trackPlayer.stop();
+      trackPlayer.play(track);
     }
 
     /**************************************************************
@@ -157,7 +138,7 @@
      * @param trackIdx
      */
     function vote(round, trackIdx) {
-      stopTrack();
+      trackPlayer.stop();
       if (!vm.tracks[trackIdx].votes) {
         vm.tracks[trackIdx].votes = 1;
       } else {
