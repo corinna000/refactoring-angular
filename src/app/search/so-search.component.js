@@ -16,7 +16,8 @@
       '<form class="form-inline" ng-submit="$ctrl.search(query)">',
       '<label for="so-search" ng-transclude></label>',
       '<div class="form-group">',
-      '<input id="so-search" class="form-control" ng-model="query"><button type="submit" class="btn btn-primary">Search</button>',
+      '<input id="so-search" class="form-control" ng-model="query">',
+      '<button type="submit" class="btn btn-primary">Search</button>',
       '</div>',
       '</form>'
     ].join(''),
