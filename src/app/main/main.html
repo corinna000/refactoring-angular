@@ -6,9 +6,10 @@
   <div>
     <div ng-include="'app/search/search-partial.html'"></div>
     <div ng-include="'app/search/search-results-partial.html'"></div>
-    <div ng-show="vm.tracks.length">
+    <div ng-show="vm.bm.tracks.length">
       <div ng-include="'app/track-player/track-progress-partial.html'"></div>
       <div ng-include="'app/brackets/brackets-partial.html'"></div>
+      <div ng-include="'app/brackets/voting-summary.html'"></div>
     </div>
   </div>
 </div>

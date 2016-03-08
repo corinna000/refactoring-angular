@@ -25,11 +25,14 @@
     bindings: {
       onTracksUpdated: '<'
     },
-    controller: function (StreamingAudio) {
+    controller: function (StreamingAudio, TrackFactory) {
       var self = this;
       this.search = function (query) {
         StreamingAudio.search(angular.copy(SEARCH_OPTIONS), query).then(function (results) {
-          self.onTracksUpdated(results);
+          var tracks = results.map(function (item) {
+            return TrackFactory.create(item)
+          });
+          self.onTracksUpdated(tracks);
         });
       }
     }

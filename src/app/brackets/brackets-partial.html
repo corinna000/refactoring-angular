@@ -2,169 +2,86 @@
   <tr>
     <td class="round-one">
       <h3>Round 1</h3>
-      <div ng-hide="vm.getWinner(0)">
-
-        <div class="track">
-          {{ vm.tracks[0].title }} ({{ vm.tracks[0].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[0])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(0, 0)" class="label label-success">vote!</button>
-        </div>
+      <div ng-show="vm.bm.showCurrentRound(0)">
+        <so-track track="vm.bm.tracks[0]" round="0"></so-track>
         vs.
-        <div class="track">
-          {{ vm.tracks[1].title }} ({{vm.tracks[1].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[1])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(0, 1)" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.tracks[1]" round="0"></so-track>
       </div>
-      <div ng-show="vm.getWinner(0)">
-        Winner: <span class="winner">{{ vm.getWinner(0).title }}</span>
+      <div ng-show="vm.bm.getWinner(0)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(0).title }}</span>
       </div>
     </td>
     <td rowdiv="2" class="round-two">
 
       <h3>Semi-Final</h3>
-      <div ng-show="vm.previousRoundsComplete(0) && !vm.getWinner(4)">
-
-        <div class="track">
-          {{ vm.getWinner(0).title }} ({{ vm.getWinner(0).duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.getWinner(0))"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(4, vm.winners[0])" class="label label-success">vote!</button>
-        </div>
+      <div ng-show="vm.bm.showCurrentRound(4)">
+        <so-track track="vm.bm.getWinner(0)" round="4"></so-track>
         vs.
-        <div class="track">
-          {{ vm.getWinner(1).title }} ({{vm.getWinner(1).duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.roundOne[1])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(4, vm.winners[1])" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.getWinner(1)" round="4"></so-track>
       </div>
-      <div ng-show="vm.getWinner(4)">
-        Winner: <span class="winner">{{ vm.getWinner(4).title }}</span>
+      <div ng-show="vm.bm.getWinner(4)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(4).title }}</span>
       </div>
 
     </td>
     <td rowdiv="4" class="round-three">
 
       <h3>Final Round</h3>
-      <div ng-show="vm.getWinner(4) && vm.getWinner(5) && !vm.getWinner(6)">
-
-        <div class="track">
-          {{ vm.getWinner(4).title }} ({{ vm.getWinner(4).duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.getWinner(4))"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(6, vm.winners[4])" class="label label-success">vote!</button>
-        </div>
+      <div ng-show="vm.bm.showCurrentRound(6)">
+        <so-track track="vm.bm.getWinner(4)" round="6"></so-track>
         vs.
-        <div class="track">
-          {{ vm.getWinner(5).title }} ({{vm.getWinner(5).duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.getWinner(5))"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(6, vm.winners[5])" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.getWinner(5)" round="6"></so-track>
       </div>
-      <div ng-show="vm.getWinner(6)">
-        Winner: <span class="winner">{{ vm.getWinner(6).title }}</span>
+      <div ng-show="vm.bm.getWinner(6)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(6).title }}</span>
       </div>
     </td>
   </tr>
   <tr>
     <td class="round-one">
-      <div ng-hide="vm.getWinner(1)">
-        <div class="track">
-          {{ vm.tracks[2].title }} ({{ vm.tracks[2].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[2])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(1, 2)" class="label label-success">vote!</button>
-        </div>
+      <div ng-show="vm.bm.showCurrentRound(1)">
+        <so-track track="vm.bm.tracks[2]" round="1"></so-track>
         vs.
-        <div class="track">
-          {{ vm.tracks[3].title }} ({{vm.tracks[3].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[3])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(1, 3)" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.tracks[3]" round="1"></so-track>
       </div>
-      <div ng-show="vm.getWinner(1)">
-        Winner: <span class="winner">{{ vm.getWinner(1).title }}</span>
+      <div ng-show="vm.bm.getWinner(1)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(1).title }}</span>
       </div>
   </tr>
   <tr>
     <td class="round-one">
-      <div ng-hide="vm.getWinner(2)">
-        <div class="track">
-          {{ vm.tracks[4].title }} ({{ vm.tracks[4].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[4])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(2, 4)" class="label label-success">vote!</button>
-        </div>
+      <div ng-show="vm.bm.showCurrentRound(2)">
+        <so-track track="vm.bm.tracks[4]" round="2"></so-track>
         vs.
-        <div class="track">
-          {{ vm.tracks[5].title }} ({{vm.tracks[5].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[5])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(2, 5)" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.tracks[5]" round="2"></so-track>
       </div>
-      <div ng-show="vm.getWinner(2)">
-        Winner: <span class="winner">{{ vm.getWinner(2).title }}</span>
+      <div ng-show="vm.bm.getWinner(2)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(2).title }}</span>
       </div>
     </td>
     <td rowdiv="2" class="round-two">
-      <div ng-show="vm.previousRoundsComplete(1) && !vm.getWinner(5)">
+      <div ng-show="vm.bm.showCurrentRound(5)">
         <h3>Semi-Final</h3>
-        <div class="track">
-          {{ vm.getWinner(2).title }} ({{ vm.getWinner(2).duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.roundOne[2])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(5, vm.winners[2])" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.getWinner(2)" round="5"></so-track>
         vs.
-        <div class="track">
-          {{ vm.getWinner(3).title }} ({{vm.getWinner(3).duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.getWinner(3))"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(5, vm.winners[3])" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.getWinner(3)" round="5"></so-track>
       </div>
-      <div ng-show="vm.getWinner(5)">
-        Winner: <span class="winner">{{ vm.getWinner(5).title }}</span>
+      <div ng-show="vm.bm.getWinner(5)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(5).title }}</span>
       </div>
 
     </td>
   </tr>
   <tr>
     <td class="round-one">
-      <div ng-hide="vm.getWinner(3)">
-        <div class="track">
-          {{ vm.tracks[6].title }} ({{ vm.tracks[6].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[6])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(3, 6)" class="label label-success">vote!</button>
-        </div>
+      <div ng-show="vm.bm.showCurrentRound(3)">
+        <so-track track="vm.bm.tracks[6]" round="3"></so-track>
         vs.
-        <div class="track">
-          {{ vm.tracks[7].title }} ({{vm.tracks[7].duration | date:'mm:ss'}})
-          <span ng-click="vm.playTrack(vm.tracks[7])"><i class="glyphicon glyphicon-play"></i></span>
-          <span ng-click="vm.stopTrack()"><i class="glyphicon glyphicon-stop"></i></span>
-          <button ng-click="vm.vote(3, 7)" class="label label-success">vote!</button>
-        </div>
+        <so-track track="vm.bm.tracks[7]" round="3"></so-track>
       </div>
-      <div ng-show="vm.getWinner(3)">
-        Winner: <span class="winner">{{ vm.getWinner(3).title }}</span>
+      <div ng-show="vm.bm.getWinner(3)">
+        Winner: <span class="winner">{{ vm.bm.getWinner(3).title }}</span>
       </div>
     </td>
   </tr>
 </table>
-
-<div ng-show="vm.getWinner(6)">
-  <h3>Voting Summary:</h3>
-  <table class="table table-striped">
-    <tr ng-repeat="track in vm.tracks | orderBy: '-votes'">
-      <td>{{ track.title }}</td>
-      <td><span ng-show="track.votes">{{ track.votes }}</span><span ng-hide="track.votes">0</span></td>
-    </tr>
-
-  </table>

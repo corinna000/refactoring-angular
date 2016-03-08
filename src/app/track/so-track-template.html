@@ -1,0 +1,8 @@
+<div class="track">
+  <span ng-bind="$ctrl.track.title"></span> <span ng-bind="$ctrl.track.duration | date:'mm:ss'"></span>
+  <section class="controls">
+    <span class="play" ng-click="$ctrl.play($ctrl.track)"><i class="glyphicon glyphicon-play"></i></span>
+    <span class="stop" ng-click="$ctrl.stop()"><i class="glyphicon glyphicon-stop"></i></span>
+    <button class="label label-success" ng-click="$ctrl.vote()">vote</button>
+  </section>
+</div>
